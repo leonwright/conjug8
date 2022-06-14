@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { ChangeEventHandler, useState } from 'react';
+import { useState } from 'react';
 
 interface AnswerSectionProps {
   pronoun:

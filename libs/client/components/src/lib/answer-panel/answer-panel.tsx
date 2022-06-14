@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { AnswerSection } from './answer-section';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { Dictionary } from '@conjug8/server/dictionary';
 
 /* eslint-disable-next-line */
