@@ -72,7 +72,7 @@ function randomEnum<T>(anEnum: T): T[keyof T] {
 export function Index() {
   const url = new URL('http://localhost:3333/api/dictionary/random');
   url.searchParams.append('mood', 'Indicative' /* randomEnum(Mood) */);
-  url.searchParams.append('tense', randomEnum(Tense));
+  url.searchParams.append('tense', 'Present' /* randomEnum(Tense) */);
   // console.log(url);
 
   const { isLoading, error, data, refetch } = useQuery<Dictionary>(
@@ -96,7 +96,7 @@ export function Index() {
             </span>
           </QuestionSection>
           <Page>
-            <AnswerPanel />
+            <AnswerPanel dictionary={data} />
             <Control
               className="bg-red-500"
               onClick={() => refetch()}

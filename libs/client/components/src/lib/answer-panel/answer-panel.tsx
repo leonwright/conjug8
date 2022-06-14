@@ -4,7 +4,9 @@ import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { Dictionary } from '@conjug8/server/dictionary';
 
 /* eslint-disable-next-line */
-export interface AnswerPanelProps {}
+export interface AnswerPanelProps {
+  dictionary: Dictionary;
+}
 
 const StyledAnswerPanel = styled.div`
   width: 650px;
@@ -17,15 +19,22 @@ const StyledAnswerPanel = styled.div`
 const PanelBody = styled.div``;
 
 export function AnswerPanel(props: AnswerPanelProps) {
+  const { dictionary } = props;
   return (
     <StyledAnswerPanel className="flex flex-col p-14">
       <PanelBody className="w-full h-full">
-        <AnswerSection pronoun="yo" />
-        <AnswerSection pronoun="tú" />
-        <AnswerSection pronoun="él/ella/usted" />
-        <AnswerSection pronoun="nosotros" />
-        <AnswerSection pronoun="vosotros" />
-        <AnswerSection pronoun="ellos/ellas/ustedes" />
+        <AnswerSection correctAnswer={dictionary.form_1s} pronoun="yo" />
+        <AnswerSection correctAnswer={dictionary.form_2s} pronoun="tú" />
+        <AnswerSection
+          correctAnswer={dictionary.form_3s}
+          pronoun="él/ella/usted"
+        />
+        <AnswerSection correctAnswer={dictionary.form_1p} pronoun="nosotros" />
+        <AnswerSection correctAnswer={dictionary.form_2p} pronoun="vosotros" />
+        <AnswerSection
+          correctAnswer={dictionary.form_3p}
+          pronoun="ellos/ellas/ustedes"
+        />
       </PanelBody>
     </StyledAnswerPanel>
   );
