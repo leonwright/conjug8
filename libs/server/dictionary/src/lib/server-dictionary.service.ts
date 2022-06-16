@@ -36,8 +36,6 @@ export class ServerDictionaryService {
       },
     ]);
 
-    this.logger.log(result);
-
     return {
       tense: result[0]._id.tense_english,
       mood: result[0]._id.mood_english,
