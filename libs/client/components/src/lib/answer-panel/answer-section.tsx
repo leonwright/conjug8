@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 interface AnswerSectionProps {
   pronoun:
@@ -42,8 +42,11 @@ const AnswerInput = styled.input<AnswerInputProps>`
 `;
 
 // TODO: Update event type
-function checkAnswer(event: any, correctAnswer: string): boolean {
-  if (event.target.value === correctAnswer) {
+function checkAnswer(
+  event: FormEvent<HTMLInputElement>,
+  correctAnswer: string
+): boolean {
+  if (event.currentTarget.value === correctAnswer) {
     return true;
   }
   return false;
