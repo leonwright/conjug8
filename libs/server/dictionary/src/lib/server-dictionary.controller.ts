@@ -43,7 +43,7 @@ export class ServerDictionaryController {
   }
 
   @Get('random/parameters')
-  async getRandomParametes() {
+  async getRandomParametes(): Promise<TenseMood> {
     return await this.serverDictionaryService.getRandomTenseMoodCombination();
   }
 }
