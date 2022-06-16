@@ -41,7 +41,6 @@ const AnswerInput = styled.input<AnswerInputProps>`
   }
 `;
 
-// TODO: Update event type
 function checkAnswer(
   event: FormEvent<HTMLInputElement>,
   correctAnswer: string
