@@ -87,7 +87,10 @@ export function Index() {
               </b>
             </span>
             <span className="mood">
-              Mood: <b>{data.mood_english}</b>
+              Mood:{' '}
+              <b>
+                {data.mood_english}/{data.mood}
+              </b>
             </span>
           </QuestionSection>
           <Page>
