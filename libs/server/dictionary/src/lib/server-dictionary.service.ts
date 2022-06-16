@@ -58,9 +58,7 @@ export class ServerDictionaryService {
         .exec()
     )[0];
 
-    this.logger.log(result);
-
-    // this.logger.log(`Found verb "${result.infinitive}"`);
+    this.logger.log(`Found verb "${result.infinitive}"`);
 
     return result;
   }

@@ -34,7 +34,7 @@ const AnswerInput = styled.input<AnswerInputProps>`
   font-size: 0.875rem; /* 14px */
   line-height: 1.25rem; /* 20px */
   background-color: rgb(229 231 235);
-  border: ${(props) => (props.correct ? '1px solid green' : 'none')};
+  border: ${(props) => (props.correct ? '2px solid green' : 'none')};
 
   &:focus-visible {
     outline: none;

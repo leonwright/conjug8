@@ -9,7 +9,7 @@ export interface AnswerPanelProps {
 
 const StyledAnswerPanel = styled.div`
   width: 650px;
-  background: #dafdba;
+  background: #f2fdba;
   border: 2px solid #13678a;
   border-radius: 15px;
   height: fit-content;
