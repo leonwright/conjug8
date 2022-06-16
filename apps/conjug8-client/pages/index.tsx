@@ -56,10 +56,12 @@ export function Index() {
     'verbData',
     async () => {
       const parametersUrl = new URL(
-        'http://localhost:3333/api/dictionary/random/parameters'
+        `${process.env.NX_BASE_URL}${process.env.NX_GET_RANDOM_PARAMS_ENDPOINT}`
       );
-      const url = new URL('http://localhost:3333/api/dictionary/random');
-      const paramsResult = await (await fetch(parametersUrl)).json();
+      const url = new URL(
+        `${process.env.NX_BASE_URL}${process.env.NX_GET_RANDOM_VERB_ENDPOINT}`
+      );
+      const paramsResult: TenseMood = await (await fetch(parametersUrl)).json();
       url.searchParams.append('mood', paramsResult.mood);
       url.searchParams.append('tense', paramsResult.tense);
       const res = fetch(url).then((res) => res.json());

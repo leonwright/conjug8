@@ -19,6 +19,7 @@
     "@types/lodash": "^4.14.182",
     "autoprefixer": "^10.4.7",
     "core-js": "^3.6.5",
+    "env-cmd": "^10.1.0",
     "lodash": "^4.17.21",
     "mongoose": "^6.3.8",
     "next": "12.1.6",

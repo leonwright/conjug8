@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/next:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/conjug8-client",
@@ -14,6 +16,13 @@
       "configurations": {
         "development": {},
         "production": {}
+      }
+    },
+    "build-dev": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "envFile": "apps/conjug8-client/.env.development",
+        "command": "env-cmd -f apps/conjug8-client/.env.development npx nx run conjug8-client:build:production"
       }
     },
     "serve": {
@@ -43,7 +52,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/conjug8-client"],
+      "outputs": [
+        "coverage/apps/conjug8-client"
+      ],
       "options": {
         "jestConfig": "apps/conjug8-client/jest.config.ts",
         "passWithNoTests": true
@@ -51,9 +62,13 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/conjug8-client/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "apps/conjug8-client/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     }
   },
