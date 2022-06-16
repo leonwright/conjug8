@@ -22,7 +22,7 @@
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "envFile": "apps/conjug8-client/.env.development",
-        "command": "env-cmd -f apps/conjug8-client/.env.development npx nx run conjug8-client:build:production"
+        "command": "env-cmd -f ./apps/conjug8-client/.env.development npx nx run conjug8-client:build:production"
       }
     },
     "serve": {
