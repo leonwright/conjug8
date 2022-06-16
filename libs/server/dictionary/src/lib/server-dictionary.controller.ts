@@ -4,6 +4,7 @@ import { Dictionary } from './schemas/dictionary.schema';
 import { ServerDictionaryService } from './server-dictionary.service';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Mood } from './enums/mood.enum';
+import { TenseMood } from './interfaces';
 
 @ApiTags('dictionary')
 @Controller('dictionary')
@@ -39,5 +40,10 @@ export class ServerDictionaryController {
       tense,
       mood
     );
+  }
+
+  @Get('random/parameters')
+  async getRandomParametes() {
+    return await this.serverDictionaryService.getRandomTenseMoodCombination();
   }
 }

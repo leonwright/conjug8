@@ -1,6 +1,6 @@
 import { AnswerPanel } from '@conjug8/client/components';
 import { Container } from '@conjug8/client/shared';
-import { Dictionary } from '@conjug8/server/dictionary';
+import { Dictionary, TenseMood } from '@conjug8/server/dictionary';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
@@ -28,7 +28,16 @@ const QuestionSection = styled.div`
     font-weight: 700;
   }
 
+  .meaning {
+    margin-bottom: 20px;
+  }
+
   .tense {
+    font-weight: 300;
+    margin-bottom: 2px;
+  }
+
+  .mood {
     font-weight: 300;
     margin-bottom: 10px;
   }
@@ -42,42 +51,20 @@ const Control = styled.button`
   margin-top: 1rem;
 `;
 
-enum Tense {
-  Conditional = 'Conditional',
-  Conditional_Perfect = 'Conditional Perfect',
-  Future = 'Future',
-  Future_Perfect = 'Future Perfect',
-  Imperfect = 'Imperfect',
-  Past_Perfect = 'Past Perfect',
-  Present = 'Present',
-  Present_Perfect = 'Present Perfect',
-  Preterite = 'Preterite',
-  PreteriteA = 'Preterite (Archaic)',
-}
-
-enum Mood {
-  Imperative_Affirmative = 'Imperative Affirmative',
-  Imperative_Negative = 'Imperative Negative',
-  Indicative = 'Indicative',
-  Subjunctive = 'Subjunctive',
-}
-
-function randomEnum<T>(anEnum: T): T[keyof T] {
-  const enumValues = Object.keys(anEnum).map((_, i) => i);
-
-  const randomIndex = Math.floor(Math.random() * enumValues.length);
-  return anEnum[Object.keys(anEnum)[randomIndex]];
-}
-
 export function Index() {
-  const url = new URL('http://localhost:3333/api/dictionary/random');
-  url.searchParams.append('mood', 'Indicative' /* randomEnum(Mood) */);
-  url.searchParams.append('tense', 'Present' /* randomEnum(Tense) */);
-  // console.log(url);
-
-  const { isLoading, error, data, refetch } = useQuery<Dictionary>(
+  const { isLoading, data, refetch } = useQuery<Dictionary>(
     'verbData',
-    () => fetch(url).then((res) => res.json()),
+    async () => {
+      const parametersUrl = new URL(
+        'http://localhost:3333/api/dictionary/random/parameters'
+      );
+      const url = new URL('http://localhost:3333/api/dictionary/random');
+      const paramsResult = await (await fetch(parametersUrl)).json();
+      url.searchParams.append('mood', paramsResult.mood);
+      url.searchParams.append('tense', paramsResult.tense);
+      const res = fetch(url).then((res) => res.json());
+      return res;
+    },
     {
       refetchOnWindowFocus: false,
     }
@@ -92,7 +79,13 @@ export function Index() {
             <span className="word">{data.infinitive}</span>
             <span className="meaning">{data.infinitive_english}</span>
             <span className="tense">
-              {data.tense_english}/{data.tense}
+              Tense:{' '}
+              <b>
+                {data.tense_english}/{data.tense}
+              </b>
+            </span>
+            <span className="mood">
+              Mood: <b>{data.mood_english}</b>
             </span>
           </QuestionSection>
           <Page>

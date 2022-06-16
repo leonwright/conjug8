@@ -1,5 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Model } from 'mongoose';
+import { TenseMood } from './interfaces/tense_mood.interface';
 import { Dictionary } from './schemas/dictionary.schema';
 
 @Injectable()
@@ -19,6 +20,30 @@ export class ServerDictionaryService {
     return result;
   }
 
+  async getRandomTenseMoodCombination(): Promise<TenseMood> {
+    this.logger.log('Getting combinations...');
+    const result: any[] = await this.dictionaryModel.aggregate([
+      {
+        $group: {
+          _id: {
+            mood_english: '$mood_english',
+            tense_english: '$tense_english',
+          },
+        },
+      },
+      {
+        $sample: { size: 1 },
+      },
+    ]);
+
+    this.logger.log(result);
+
+    return {
+      tense: result[0]._id.tense_english,
+      mood: result[0]._id.mood_english,
+    };
+  }
+
   async getRandomVerbByTenseAndMood(
     tense: string,
     mood: string
@@ -35,7 +60,9 @@ export class ServerDictionaryService {
         .exec()
     )[0];
 
-    this.logger.log(`Found verb "${result.infinitive}"`);
+    this.logger.log(result);
+
+    // this.logger.log(`Found verb "${result.infinitive}"`);
 
     return result;
   }
