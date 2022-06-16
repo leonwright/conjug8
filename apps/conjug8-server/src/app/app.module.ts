@@ -1,13 +1,20 @@
 import { ServerDictionaryModule } from '@conjug8/server/dictionary';
-import { ServerSharedModule } from '@conjug8/server/shared';
+import { databaseConfig, ServerSharedModule } from '@conjug8/server/shared';
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [ServerSharedModule, ServerDictionaryModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [databaseConfig],
+    }),
+    ServerSharedModule,
+    ServerDictionaryModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
