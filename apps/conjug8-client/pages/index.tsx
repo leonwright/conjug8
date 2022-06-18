@@ -58,7 +58,7 @@ const Control = styled.button<ButtonProps>`
   margin-right: 1rem;
 
   &:last-child {
-    margin-right: 1rem;
+    margin-right: 0;
   }
 `;
 
