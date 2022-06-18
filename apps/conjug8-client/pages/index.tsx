@@ -4,6 +4,10 @@ import { Dictionary, TenseMood } from '@conjug8/server/dictionary';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
+interface ButtonProps {
+  color: string;
+}
+
 const Logo = styled.div`
   font-family: 'Italiana', serif;
   font-size: 40px;
@@ -43,12 +47,19 @@ const QuestionSection = styled.div`
   }
 `;
 
-const Control = styled.button`
-  background: #13678a !important;
+const ControlSection = styled.div``;
+
+const Control = styled.button<ButtonProps>`
+  background: ${(props) => props.color} !important;
   border-radius: 15px;
   padding: 10px 30px;
   color: white;
   margin-top: 1rem;
+  margin-right: 1rem;
+
+  &:last-child {
+    margin-right: 1rem;
+  }
 `;
 
 export function Index() {
@@ -95,13 +106,17 @@ export function Index() {
           </QuestionSection>
           <Page>
             <AnswerPanel dictionary={data} />
-            <Control
-              className="bg-red-500"
-              onClick={() => refetch()}
-              type="button"
-            >
-              Next
-            </Control>
+            <ControlSection>
+              <Control color="#13678a" onClick={() => refetch()} type="button">
+                Next
+              </Control>
+              <Control color="#45C4B0" type="button">
+                Settings
+              </Control>
+              <Control color="#9AEBA3" type="button">
+                Help
+              </Control>
+            </ControlSection>
           </Page>
         </div>
       )}
