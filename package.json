@@ -28,6 +28,7 @@
     "react-dom": "18.1.0",
     "react-is": "18.1.0",
     "react-query": "^3.39.1",
+    "recoil": "^0.7.3",
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "rxjs": "^7.0.0",

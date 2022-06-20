@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "client-atoms": "libs/client/atoms",
     "client-components": "libs/client/components",
     "client-shared": "libs/client/shared",
     "conjug8-client": "apps/conjug8-client",

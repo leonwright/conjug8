@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@conjug8/client/atoms": ["libs/client/atoms/src/index.ts"],
       "@conjug8/client/components": ["libs/client/components/src/index.ts"],
       "@conjug8/client/shared": ["libs/client/shared/src/index.ts"],
       "@conjug8/server/dictionary": ["libs/server/dictionary/src/index.ts"],

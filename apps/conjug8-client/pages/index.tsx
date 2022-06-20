@@ -1,12 +1,15 @@
-import { AnswerPanel } from '@conjug8/client/components';
+import {
+  AnswerPanel,
+  Blue,
+  Button,
+  Green,
+  HelpDialog,
+  Teal,
+} from '@conjug8/client/components';
 import { Container } from '@conjug8/client/shared';
 import { Dictionary, TenseMood } from '@conjug8/server/dictionary';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-
-interface ButtonProps {
-  color: string;
-}
 
 const Logo = styled.div`
   font-family: 'Italiana', serif;
@@ -49,19 +52,6 @@ const QuestionSection = styled.div`
 
 const ControlSection = styled.div``;
 
-const Control = styled.button<ButtonProps>`
-  background: ${(props) => props.color} !important;
-  border-radius: 15px;
-  padding: 10px 30px;
-  color: white;
-  margin-top: 1rem;
-  margin-right: 1rem;
-
-  &:last-child {
-    margin-right: 0;
-  }
-`;
-
 export function Index() {
   const { isLoading, data, refetch } = useQuery<Dictionary>(
     'verbData',
@@ -85,6 +75,7 @@ export function Index() {
 
   return (
     <Container>
+      <HelpDialog isOpen={true} />
       <Logo>Conjug8</Logo>
       {!isLoading && (
         <div>
@@ -107,15 +98,15 @@ export function Index() {
           <Page>
             <AnswerPanel dictionary={data} />
             <ControlSection>
-              <Control color="#13678a" onClick={() => refetch()} type="button">
+              <Button color={Blue} onClick={() => refetch()} type="button">
                 Next
-              </Control>
-              <Control color="#45C4B0" type="button">
+              </Button>
+              <Button color={Teal} type="button">
                 Settings
-              </Control>
-              <Control color="#9AEBA3" type="button">
+              </Button>
+              <Button color={Green} type="button">
                 Help
-              </Control>
+              </Button>
             </ControlSection>
           </Page>
         </div>
