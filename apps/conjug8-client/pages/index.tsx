@@ -1,3 +1,4 @@
+import { helpDialogState } from '@conjug8/client/atoms';
 import {
   AnswerPanel,
   Blue,
@@ -9,6 +10,7 @@ import {
 import { Container } from '@conjug8/client/shared';
 import { Dictionary, TenseMood } from '@conjug8/server/dictionary';
 import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 const Logo = styled.div`
@@ -53,6 +55,7 @@ const QuestionSection = styled.div`
 const ControlSection = styled.div``;
 
 export function Index() {
+  const [_, setIsOpen] = useRecoilState(helpDialogState);
   const { isLoading, data, refetch } = useQuery<Dictionary>(
     'verbData',
     async () => {
@@ -75,10 +78,10 @@ export function Index() {
 
   return (
     <Container>
-      <HelpDialog isOpen={true} />
       <Logo>Conjug8</Logo>
       {!isLoading && (
         <div>
+          <HelpDialog dictionary={data} />
           <QuestionSection>
             <span className="word">{data.infinitive}</span>
             <span className="meaning">{data.infinitive_english}</span>
@@ -104,7 +107,11 @@ export function Index() {
               <Button color={Teal} type="button">
                 Settings
               </Button>
-              <Button color={Green} type="button">
+              <Button
+                color={Green}
+                onClick={() => setIsOpen(true)}
+                type="button"
+              >
                 Help
               </Button>
             </ControlSection>
