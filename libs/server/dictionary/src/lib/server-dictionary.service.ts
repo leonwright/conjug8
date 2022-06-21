@@ -88,4 +88,23 @@ export class ServerDictionaryService {
     this.logger.log(res);
     return res;
   }
+
+  async findAllTenseMoodCombinations(): Promise<TenseMood[]> {
+    this.logger.log('Getting combinations...');
+    const result: any[] = await this.dictionaryModel.aggregate([
+      {
+        $group: {
+          _id: {
+            mood_english: '$mood_english',
+            tense_english: '$tense_english',
+          },
+        },
+      },
+    ]);
+
+    return result.map((r) => ({
+      tense: r._id.tense_english,
+      mood: r._id.mood_english,
+    }));
+  }
 }

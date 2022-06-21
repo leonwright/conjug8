@@ -46,4 +46,10 @@ export class ServerDictionaryController {
   async getRandomParametes(): Promise<TenseMood> {
     return await this.serverDictionaryService.getRandomTenseMoodCombination();
   }
+
+  // A controller to get all possible combinations of tense and mood
+  @Get('all/parameters')
+  async getAll(): Promise<TenseMood[]> {
+    return await this.serverDictionaryService.findAllTenseMoodCombinations();
+  }
 }

@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import { Mood, Tense, TenseMood } from '@conjug8/shared/models';
 
 export interface ApplicationSettings {
-  params: TenseMood | null;
+  params: TenseMood;
 }
 
 export const settingsState = atom<ApplicationSettings>({
