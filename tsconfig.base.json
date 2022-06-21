@@ -19,7 +19,8 @@
       "@conjug8/client/components": ["libs/client/components/src/index.ts"],
       "@conjug8/client/shared": ["libs/client/shared/src/index.ts"],
       "@conjug8/server/dictionary": ["libs/server/dictionary/src/index.ts"],
-      "@conjug8/server/shared": ["libs/server/shared/src/index.ts"]
+      "@conjug8/server/shared": ["libs/server/shared/src/index.ts"],
+      "@conjug8/shared/models": ["libs/shared/models/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

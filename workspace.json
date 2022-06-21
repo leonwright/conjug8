@@ -9,6 +9,7 @@
     "conjug8-client-e2e": "apps/conjug8-client-e2e",
     "conjug8-server": "apps/conjug8-server",
     "server-dictionary": "libs/server/dictionary",
-    "server-shared": "libs/server/shared"
+    "server-shared": "libs/server/shared",
+    "shared-models": "libs/shared/models"
   }
 }

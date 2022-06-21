@@ -1,16 +1,21 @@
-import { helpDialogState } from '@conjug8/client/atoms';
+import {
+  helpDialogState,
+  settingsDialogState,
+  settingsState,
+} from '@conjug8/client/atoms';
 import {
   AnswerPanel,
   Blue,
   Button,
   Green,
   HelpDialog,
+  SettingsDialog,
   Teal,
 } from '@conjug8/client/components';
 import { Container } from '@conjug8/client/shared';
 import { Dictionary, TenseMood } from '@conjug8/server/dictionary';
 import { useQuery } from 'react-query';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 const Logo = styled.div`
@@ -55,7 +60,9 @@ const QuestionSection = styled.div`
 const ControlSection = styled.div``;
 
 export function Index() {
-  const [_, setIsOpen] = useRecoilState(helpDialogState);
+  const setHelpIsOpen = useSetRecoilState(helpDialogState);
+  const setSettingIsOpen = useSetRecoilState(settingsDialogState);
+  const applicationSettings = useRecoilValue(settingsState);
   const { isLoading, data, refetch } = useQuery<Dictionary>(
     'verbData',
     async () => {
@@ -65,9 +72,20 @@ export function Index() {
       const url = new URL(
         `${process.env.NX_BASE_URL}${process.env.NX_GET_RANDOM_VERB_ENDPOINT}`
       );
-      const paramsResult: TenseMood = await (await fetch(parametersUrl)).json();
-      url.searchParams.append('mood', paramsResult.mood);
-      url.searchParams.append('tense', paramsResult.tense);
+
+      let paramsResult: TenseMood;
+      if (applicationSettings.params === null) {
+        paramsResult = await (await fetch(parametersUrl)).json();
+      }
+
+      url.searchParams.append(
+        'mood',
+        applicationSettings.params.mood || paramsResult.mood
+      );
+      url.searchParams.append(
+        'tense',
+        applicationSettings.params.tense || paramsResult.tense
+      );
       const res = fetch(url).then((res) => res.json());
       return res;
     },
@@ -76,8 +94,11 @@ export function Index() {
     }
   );
 
+  console.log(applicationSettings);
+
   return (
     <Container>
+      <SettingsDialog />
       <Logo>Conjug8</Logo>
       {!isLoading && (
         <div>
@@ -104,12 +125,16 @@ export function Index() {
               <Button color={Blue} onClick={() => refetch()} type="button">
                 Next
               </Button>
-              <Button color={Teal} type="button">
+              <Button
+                color={Teal}
+                onClick={() => setSettingIsOpen(true)}
+                type="button"
+              >
                 Settings
               </Button>
               <Button
                 color={Green}
-                onClick={() => setIsOpen(true)}
+                onClick={() => setHelpIsOpen(true)}
                 type="button"
               >
                 Help
