@@ -1,0 +1,98 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/vocab/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/vocab",
+        "index": "apps/vocab/src/index.html",
+        "baseHref": "/",
+        "main": "apps/vocab/src/main.ts",
+        "polyfills": "apps/vocab/src/polyfills.ts",
+        "tsConfig": "apps/vocab/tsconfig.app.json",
+        "assets": ["apps/vocab/src/favicon.ico", "apps/vocab/src/assets"],
+        "styles": ["apps/vocab/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "apps/vocab/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/vocab/src/environments/environment.ts",
+              "with": "apps/vocab/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "apps/vocab/webpack.config.prod.js"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "vocab:build",
+        "hmr": true,
+        "port": 4202
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "vocab:build:development"
+        },
+        "production": {
+          "buildTarget": "vocab:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/vocab/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/vocab"],
+      "options": {
+        "jestConfig": "apps/vocab/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "vocab:build",
+        "port": 4202
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "vocab:build:development"
+        },
+        "production": {
+          "buildTarget": "vocab:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/conjug8/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/conjug8",
+        "index": "apps/conjug8/src/index.html",
+        "baseHref": "/",
+        "main": "apps/conjug8/src/main.ts",
+        "polyfills": "apps/conjug8/src/polyfills.ts",
+        "tsConfig": "apps/conjug8/tsconfig.app.json",
+        "assets": ["apps/conjug8/src/favicon.ico", "apps/conjug8/src/assets"],
+        "styles": ["apps/conjug8/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "apps/conjug8/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/conjug8/src/environments/environment.ts",
+              "with": "apps/conjug8/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "apps/conjug8/webpack.config.prod.js"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "conjug8:build",
+        "hmr": true,
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "conjug8:build:development"
+        },
+        "production": {
+          "buildTarget": "conjug8:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/conjug8/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/conjug8"],
+      "options": {
+        "jestConfig": "apps/conjug8/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "conjug8:build",
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "conjug8:build:development"
+        },
+        "production": {
+          "buildTarget": "conjug8:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

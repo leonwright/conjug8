@@ -20,18 +20,19 @@
       }
     }
   },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
   "generators": {
     "@nrwl/react": {
       "application": {
+        "style": "css",
+        "linter": "eslint",
         "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
       }
     },
     "@nrwl/next": {
@@ -41,5 +42,10 @@
       }
     }
   },
-  "defaultProject": "conjug8-client"
+  "defaultProject": "conjug8-client",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
+    }
+  }
 }

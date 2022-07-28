@@ -1,0 +1,98 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/aprender/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/aprender",
+        "index": "apps/aprender/src/index.html",
+        "baseHref": "/",
+        "main": "apps/aprender/src/main.ts",
+        "polyfills": "apps/aprender/src/polyfills.ts",
+        "tsConfig": "apps/aprender/tsconfig.app.json",
+        "assets": ["apps/aprender/src/favicon.ico", "apps/aprender/src/assets"],
+        "styles": ["apps/aprender/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "apps/aprender/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/aprender/src/environments/environment.ts",
+              "with": "apps/aprender/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "apps/aprender/webpack.config.prod.js"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "aprender:build",
+        "hmr": true,
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "aprender:build:development"
+        },
+        "production": {
+          "buildTarget": "aprender:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/aprender/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/aprender"],
+      "options": {
+        "jestConfig": "apps/aprender/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "aprender:build",
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "aprender:build:development"
+        },
+        "production": {
+          "buildTarget": "aprender:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

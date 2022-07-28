@@ -2,14 +2,20 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "aprender": "apps/aprender",
+    "aprender-e2e": "apps/aprender-e2e",
     "client-atoms": "libs/client/atoms",
     "client-components": "libs/client/components",
     "client-shared": "libs/client/shared",
+    "conjug8": "apps/conjug8",
     "conjug8-client": "apps/conjug8-client",
     "conjug8-client-e2e": "apps/conjug8-client-e2e",
+    "conjug8-e2e": "apps/conjug8-e2e",
     "conjug8-server": "apps/conjug8-server",
     "server-dictionary": "libs/server/dictionary",
     "server-shared": "libs/server/shared",
-    "shared-models": "libs/shared/models"
+    "shared-models": "libs/shared/models",
+    "vocab": "apps/vocab",
+    "vocab-e2e": "apps/vocab-e2e"
   }
 }
